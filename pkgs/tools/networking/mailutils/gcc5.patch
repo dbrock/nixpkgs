@@ -1,0 +1,13 @@
+See <https://lists.gnu.org/archive/html/bug-mailutils/2015-11/msg00007.html>.
+
+--- a/gint/clexer.l
++++ b/gint/clexer.l
+@@ -90,7 +90,7 @@ WS [ \t\v\f]
+ %%
+ \/\*(\n|[^*]|\*[^/])*\*\/   { advance_line (yytext);
+                               outtok ("comment", yytext); }
+-#.*\n                       { outstr ("hash"); line_no++; }
++#.*\n                       { line_no++; }
+ \n                          { outstr ("eol"); line_no++; }
+ {WS}+                       ;
+ \\                          ;

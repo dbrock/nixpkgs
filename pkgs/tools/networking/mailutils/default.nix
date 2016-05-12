@@ -1,4 +1,5 @@
 { fetchurl, stdenv, gettext, gdbm, libtool, pam, readline
+, flex
 , ncurses, gnutls, mysql, guile, texinfo, gnum4, dejagnu, sendmailPath ? "/var/setuid-wrappers/sendmail" }:
 
 /* TODO: Add GNU SASL, GNU GSSAPI, and FreeBidi.  */
@@ -11,12 +12,13 @@ stdenv.mkDerivation rec {
     sha256 = "0szbqa12zqzldqyw97lxqax3ja2adis83i7brdfsxmrfw68iaf65";
   };
 
-  patches = [ ./path-to-cat.patch ./no-gets.patch ];
+  patches = [ ./path-to-cat.patch ./no-gets.patch ./gcc5.patch ];
 
   configureFlags = "--with-path-sendmail=${sendmailPath}";
 
   buildInputs =
    [ gettext gdbm libtool pam readline ncurses
+     flex # for ./gcc5.patch
      gnutls mysql.lib guile texinfo gnum4 ]
    ++ stdenv.lib.optional doCheck dejagnu;
 
